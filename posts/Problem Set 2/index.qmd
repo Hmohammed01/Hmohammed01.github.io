@@ -1,0 +1,128 @@
+---
+title: "Problem set 2"
+output: pdf_document
+date: "2023-09-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r results='asis', echo=FALSE}
+#| message: false
+#| warning: false
+# Clear everything
+rm(list = ls())
+# Load libraries
+library(tidyverse)
+library(ggthemes)
+library(GGally)
+library(dummy)
+library(corrplot)
+library(gamlr)
+library(caret)
+library(lubridate)
+library(rpart)
+```
+
+"understanding the data we have"
+
+```{r results='asis', echo=FALSE}
+bikes = read_csv("bikes_ps.csv")
+glimpse(bikes)
+```
+
+Looking at the data set, we have 10 columns with different features. The features are `date`, `deason`, `holidy`, `weekday`, `weather`, `tempature`, `realfeel`, `humidity`, `windspeed`, `rentals`. Our data has 731 rows of data.
+
+```{r}
+bikes %>%
+  mutate(month = month(date)) %>%
+  group_by(month) %>%
+  select(season, month) %>%
+  table()
+```
+
+We can see above that the data information doesn't directly connect with the information. As we can see the months and seasons don't reflect the true order. We will need to convert the data into correct factors.
+
+CORRECTING THE FACTORS
+
+```{r}
+bikes = bikes %>%
+  mutate_at(vars(season, holiday, weekday, weather), factor) %>%
+  mutate(season = fct_recode(season, "Winter"="1", 
+                                     "Spring"="2",
+                                     "Summer"="3",
+                                     "Fall"="4"))
+```
+
+```{r}
+bikes %>%
+  select(-date) %>%
+  keep(is.numeric) %>%
+  summary()
+```
+
+As we can see in the data we have 27 missing values for the Realfeel factor. We will have to look into this further.
+
+```{r}
+bikes %>%
+  select(-date) %>%
+  keep(is.factor) %>%
+  summary()
+```
+
+```{r}
+bikes = bikes %>%
+  mutate(realfeel_orig = realfeel)
+```
+
+```{r}
+bikes = bikes %>%
+  mutate(realfeel = ifelse(is.na(realfeel),
+                           median(realfeel, na.rm = TRUE),realfeel))
+```
+
+```{r}
+bikes %>%
+  select(realfeel, realfeel) %>%
+  summary()
+```
+
+```{r}
+bikes = bikes %>% select(-realfeel)
+```
+
+```{r}
+bikes %>% select(rentals) %>% summary()
+```
+
+```{r results='asis', echo=FALSE}
+bikes %>%
+  ggplot(aes(x=rentals)) + 
+  geom_histogram(aes(y=after_stat(density)),
+                 fill = "aquamarine",
+                 color = "aquamarine3",
+                 alpha = 0.7) +
+  geom_density(color = "black") +
+  labs(title = "Distribution of Daily Bike Rentals",
+       x = "Rentals (count)") +
+  theme_clean() 
+```
+
+Looking at this this distribution chart it seems that the data we have does not seem to have a strong skew to the data. It does seem like we have a out-lier feature around the 7500 rentals count in our distribution.
+
+ANALYZING NON TARGET FEATURES
+
+```{r}
+#| message: false
+#| warning: false
+bikes %>%
+  keep(is.numeric) %>%
+  ggpairs()
+```
+
+Looking at this graph, we can see how the different features in our data sets correlate to each other. We can see that tempature does have one graph that seems to be a linear correlation with an outlier in there. We can see that most of the graphs in a row do follow the same kind of pattern.
+
+```{r}
+
+```
