@@ -25,7 +25,7 @@ library(lubridate)
 library(rpart)
 ```
 
-"understanding the data we have"
+**Understanding the data we have collected**
 
 ```{r results='asis', echo=FALSE}
 bikes = read_csv("bikes_ps.csv")
@@ -42,9 +42,9 @@ bikes %>%
   table()
 ```
 
-We can see above that the data information doesn't directly connect with the information. As we can see the months and seasons don't reflect the true order. We will need to convert the data into correct factors.
+We can see above that the data information doesn't directly connect with the information. As we can see the months and seasons don't reflect the true order. We will need to convert the data into correct factors. Having a easy understanding of what the data reflects is very helpful in understanding the data we have.
 
-CORRECTING THE FACTORS
+**CORRECTING THE FACTORS**
 
 ```{r}
 bikes = bikes %>%
@@ -55,6 +55,8 @@ bikes = bikes %>%
                                      "Fall"="4"))
 ```
 
+We have mutated our original data into these new variables. No we understand that these variables reflect the seasons on our data. It gives us a better understanding of what the data means and refers to.
+
 ```{r}
 bikes %>%
   select(-date) %>%
@@ -62,7 +64,7 @@ bikes %>%
   summary()
 ```
 
-As we can see in the data we have 27 missing values for the Realfeel factor. We will have to look into this further.
+As we can see in the data we have 27 missing values for the Real-feel factor. We will have to look into this further.
 
 ```{r}
 bikes %>%
@@ -109,7 +111,7 @@ bikes %>%
   theme_clean() 
 ```
 
-Looking at this this distribution chart it seems that the data we have does not seem to have a strong skew to the data. It does seem like we have a out-lier feature around the 7500 rentals count in our distribution.
+Looking at this this distribution chart it seems that the data we have does not seem to have a strong skew to the data. It does seem like we have a outliar feature around the 7500 rentals count in our distribution.
 
 ANALYZING NON TARGET FEATURES
 
@@ -121,8 +123,18 @@ bikes %>%
   ggpairs()
 ```
 
-Looking at this graph, we can see how the different features in our data sets correlate to each other. We can see that tempature does have one graph that seems to be a linear correlation with an outlier in there. We can see that most of the graphs in a row do follow the same kind of pattern.
+Looking at this graph, we can see how the different features in our data sets correlate to each other. We can see that temperature does have one graph that seems to be a linear correlation with an out-liar in there. We can see that most of the graphs in a row do follow the same kind of pattern. Looking at the line plot for season is very interesting as we can see the graph kinda has a roller coaster path. It shoes the correlation that seasons can have on our prediction of rentals.
 
-```{r}
+**Discussion based questions**
 
-```
+-   **Discuss whether you think the features you have in the data make sense for learning to predict daily bike rentals.**
+
+    -   The features that we have in this data set makes sense to predict daily bike rentals. We have chosen the most effective sets of data to help understand the frequency of rentals. We used important factors such as `season` to help understand the seasonal transitions of the number of rentals. `Temperature` is also a necessity when looking at data for bike rentals, we know that temperature is a very important factor in peoples decision making when choosing an activity. Overall we do have they key factors that I believe reflect the amount of rentals.**.**
+
+-   **Discuss what is means in this case to train or \"fit\" a model to the data you prepared**
+
+    -   In this case, training or fitting a model to the data we have is us creating a model that predicts the outcome that we want. In this particular case we built a model that reflects key features that predict the amount of rentals. We used features like `season` , `temperature` and others to make a prediction with the goal of minimizing error.
+
+-   **Discuss which preparations you did were required to make the learning algorithm work, and which were not strictly required, but maybe are a good idea**.
+
+    -   The preparations that were required were to mutate the seasonal data into factors that are easily recognized in the model. First, I had to prepare the code to work. I ran into errors and had to figure out how to undo and figure out the errors to run the code. I wouldn\'t say I know any more good ideas as the factors and models we have work with the data we have been provided.

@@ -216,7 +216,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>“understanding the data we have”</p>
+<p><strong>Understanding the data we have collected</strong></p>
 <pre><code>Rows: 731 Columns: 10
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
@@ -242,8 +242,8 @@ season  1  2  3  4  5  6  7  8  9 10 11 12
      4  0  0  0  0  0  0  0  0 16 62 60 40</code></pre>
 </div>
 </div>
-<p>We can see above that the data information doesn’t directly connect with the information. As we can see the months and seasons don’t reflect the true order. We will need to convert the data into correct factors.</p>
-<p>CORRECTING THE FACTORS</p>
+<p>We can see above that the data information doesn’t directly connect with the information. As we can see the months and seasons don’t reflect the true order. We will need to convert the data into correct factors. Having a easy understanding of what the data reflects is very helpful in understanding the data we have.</p>
+<p><strong>CORRECTING THE FACTORS</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bikes <span class="ot">=</span> bikes <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(season, holiday, weekday, weather), factor) <span class="sc">%&gt;%</span></span>
@@ -252,6 +252,7 @@ season  1  2  3  4  5  6  7  8  9 10 11 12
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Summer"</span><span class="ot">=</span><span class="st">"3"</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Fall"</span><span class="ot">=</span><span class="st">"4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We have mutated our original data into these new variables. No we understand that these variables reflect the seasons on our data. It gives us a better understanding of what the data means and refers to.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bikes <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>date) <span class="sc">%&gt;%</span></span>
@@ -276,7 +277,7 @@ season  1  2  3  4  5  6  7  8  9 10 11 12
                </code></pre>
 </div>
 </div>
-<p>As we can see in the data we have 27 missing values for the Realfeel factor. We will have to look into this further.</p>
+<p>As we can see in the data we have 27 missing values for the Real-feel factor. We will have to look into this further.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>bikes <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>date) <span class="sc">%&gt;%</span></span>
@@ -335,7 +336,7 @@ season  1  2  3  4  5  6  7  8  9 10 11 12
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
-<p>Looking at this this distribution chart it seems that the data we have does not seem to have a strong skew to the data. It does seem like we have a out-lier feature around the 7500 rentals count in our distribution.</p>
+<p>Looking at this this distribution chart it seems that the data we have does not seem to have a strong skew to the data. It does seem like we have a outliar feature around the 7500 rentals count in our distribution.</p>
 <p>ANALYZING NON TARGET FEATURES</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>bikes <span class="sc">%&gt;%</span></span>
@@ -345,10 +346,22 @@ season  1  2  3  4  5  6  7  8  9 10 11 12
 <p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Looking at this graph, we can see how the different features in our data sets correlate to each other. We can see that tempature does have one graph that seems to be a linear correlation with an outlier in there. We can see that most of the graphs in a row do follow the same kind of pattern.</p>
-<div class="cell">
-
-</div>
+<p>Looking at this graph, we can see how the different features in our data sets correlate to each other. We can see that temperature does have one graph that seems to be a linear correlation with an out-liar in there. We can see that most of the graphs in a row do follow the same kind of pattern. Looking at the line plot for season is very interesting as we can see the graph kinda has a roller coaster path. It shoes the correlation that seasons can have on our prediction of rentals.</p>
+<p><strong>Discussion based questions</strong></p>
+<ul>
+<li><p><strong>Discuss whether you think the features you have in the data make sense for learning to predict daily bike rentals.</strong></p>
+<ul>
+<li>The features that we have in this data set makes sense to predict daily bike rentals. We have chosen the most effective sets of data to help understand the frequency of rentals. We used important factors such as <code>season</code> to help understand the seasonal transitions of the number of rentals. <code>Temperature</code> is also a necessity when looking at data for bike rentals, we know that temperature is a very important factor in peoples decision making when choosing an activity. Overall we do have they key factors that I believe reflect the amount of rentals.<strong>.</strong></li>
+</ul></li>
+<li><p><strong>Discuss what is means in this case to train or "fit" a model to the data you prepared</strong></p>
+<ul>
+<li>In this case, training or fitting a model to the data we have is us creating a model that predicts the outcome that we want. In this particular case we built a model that reflects key features that predict the amount of rentals. We used features like <code>season</code> , <code>temperature</code> and others to make a prediction with the goal of minimizing error.</li>
+</ul></li>
+<li><p><strong>Discuss which preparations you did were required to make the learning algorithm work, and which were not strictly required, but maybe are a good idea</strong>.</p>
+<ul>
+<li>The preparations that were required were to mutate the seasonal data into factors that are easily recognized in the model. First, I had to prepare the code to work. I ran into errors and had to figure out how to undo and figure out the errors to run the code. I wouldn't say I know any more good ideas as the factors and models we have work with the data we have been provided.</li>
+</ul></li>
+</ul>
 
 
 
